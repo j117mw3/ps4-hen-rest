@@ -1,0 +1,806 @@
+[
+  {
+    "name": "hen_rest_hook",
+    "self_bytes": 55296,
+    "type": "Orbis PRX",
+    "init": "0x20",
+    "fini": "0x40",
+    "exports": [
+      {
+        "name": "gAjvCUHeAbE#A#A",
+        "value": "0x20",
+        "size": 18,
+        "linker_names": [
+          "_init"
+        ]
+      },
+      {
+        "name": "BaOKcng8g88#A#A",
+        "value": "0xa20",
+        "size": 139,
+        "linker_names": [
+          "module_start"
+        ]
+      },
+      {
+        "name": "4k+5la20zT8#A#A",
+        "value": "0x40",
+        "size": 18,
+        "linker_names": [
+          "_fini"
+        ]
+      },
+      {
+        "name": "KpDMrPHvt3Q#A#A",
+        "value": "0xd20",
+        "size": 90,
+        "linker_names": [
+          "module_stop"
+        ]
+      },
+      {
+        "name": "OxgYRA+BVJo#A#A",
+        "value": "0x60",
+        "size": 29,
+        "linker_names": [
+          "sys_sdk_version"
+        ]
+      },
+      {
+        "name": "kLOul-mCMU0#A#A",
+        "value": "0x260",
+        "size": 0,
+        "linker_names": [
+          "orbis_syscall"
+        ]
+      },
+      {
+        "name": "yxbLcb2i5UQ#A#A",
+        "value": "0x80",
+        "size": 31,
+        "linker_names": [
+          "sys_sdk_cmd"
+        ]
+      },
+      {
+        "name": "xaitJOEeT9g#A#A",
+        "value": "0xa0",
+        "size": 33,
+        "linker_names": [
+          "sys_sdk_jailbreak"
+        ]
+      },
+      {
+        "name": "hiIshXvJxMM#A#A",
+        "value": "0xd0",
+        "size": 44,
+        "linker_names": [
+          "sys_sdk_unjailbreak"
+        ]
+      },
+      {
+        "name": "7h+Qs2Xtdi4#A#A",
+        "value": "0x100",
+        "size": 33,
+        "linker_names": [
+          "sys_sdk_proc_info"
+        ]
+      },
+      {
+        "name": "wcP2oDbMG3s#A#A",
+        "value": "0x130",
+        "size": 33,
+        "linker_names": [
+          "sys_sdk_proc_rw"
+        ]
+      },
+      {
+        "name": "Zn-JvGNXVlo#A#A",
+        "value": "0x160",
+        "size": 148,
+        "linker_names": [
+          "sys_sdk_proc_prx_load"
+        ]
+      },
+      {
+        "name": "2ulG4K1TKks#A#A",
+        "value": "0x200",
+        "size": 94,
+        "linker_names": [
+          "sys_sdk_proc_prx_unload"
+        ]
+      },
+      {
+        "name": "EZmVfH-6cvg#A#A",
+        "value": "0x290",
+        "size": 33,
+        "linker_names": [
+          "sys_dynlib_dlsym"
+        ]
+      },
+      {
+        "name": "guFR7i2FiOw#A#A",
+        "value": "0x2c0",
+        "size": 36,
+        "linker_names": [
+          "sys_dynlib_load_prx"
+        ]
+      },
+      {
+        "name": "CCXWFepRUjM#A#A",
+        "value": "0x2f0",
+        "size": 192,
+        "linker_names": [
+          "probe_log"
+        ]
+      },
+      {
+        "name": "KHwj8-ExNWo#A#A",
+        "value": "0x3b0",
+        "size": 100,
+        "linker_names": [
+          "probe_notify"
+        ]
+      },
+      {
+        "name": "nYvru1dJDiU#A#A",
+        "value": "0x420",
+        "size": 271,
+        "linker_names": [
+          "probe_process_report"
+        ]
+      },
+      {
+        "name": "PZ1UTdGg7kM#A#A",
+        "value": "0x530",
+        "size": 770,
+        "linker_names": [
+          "probe_find_process"
+        ]
+      },
+      {
+        "name": "iOv8dUb-c1w#A#A",
+        "value": "0x840",
+        "size": 120,
+        "linker_names": [
+          "probe_same_process"
+        ]
+      },
+      {
+        "name": "ZMfE8zgw4F8#A#A",
+        "value": "0x8c0",
+        "size": 85,
+        "linker_names": [
+          "probe_lock_file"
+        ]
+      },
+      {
+        "name": "oDrg7Iq+YaY#A#A",
+        "value": "0x920",
+        "size": 244,
+        "linker_names": [
+          "probe_write_text"
+        ]
+      },
+      {
+        "name": "zJ9PC9eh5Kk#A#A",
+        "value": "0x1220",
+        "size": 1232,
+        "linker_names": [
+          "probe_resolve_mono"
+        ]
+      },
+      {
+        "name": "5a8b+s6HtaA#A#A",
+        "value": "0xc048",
+        "size": 8,
+        "linker_names": [
+          "mono_get_root_domain"
+        ]
+      },
+      {
+        "name": "qqUxjwJzc2I#A#A",
+        "value": "0xc050",
+        "size": 8,
+        "linker_names": [
+          "mono_thread_attach"
+        ]
+      },
+      {
+        "name": "dCeihPtadCM#A#A",
+        "value": "0xc060",
+        "size": 8,
+        "linker_names": [
+          "mono_domain_assembly_open"
+        ]
+      },
+      {
+        "name": "xP4EC4Sp9GI#A#A",
+        "value": "0xc068",
+        "size": 8,
+        "linker_names": [
+          "mono_assembly_get_image"
+        ]
+      },
+      {
+        "name": "bzxTZSnnB38#A#A",
+        "value": "0xc070",
+        "size": 8,
+        "linker_names": [
+          "mono_class_from_name"
+        ]
+      },
+      {
+        "name": "H5IByLixeaI#A#A",
+        "value": "0xc078",
+        "size": 8,
+        "linker_names": [
+          "mono_class_get_method_from_name"
+        ]
+      },
+      {
+        "name": "6t5G5dYpMVg#A#A",
+        "value": "0xc080",
+        "size": 8,
+        "linker_names": [
+          "mono_aot_get_method"
+        ]
+      },
+      {
+        "name": "1gfowbDUZAI#A#A",
+        "value": "0xc058",
+        "size": 8,
+        "linker_names": [
+          "mono_thread_detach"
+        ]
+      },
+      {
+        "name": "uTyttM13qVc#A#A",
+        "value": "0x2708",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_start"
+        ]
+      },
+      {
+        "name": "QYt0E02im8E#A#A",
+        "value": "0x2b0c",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_end",
+          "__eh_frame_hdr_start"
+        ]
+      },
+      {
+        "name": "qGej9rktGjM#A#A",
+        "value": "0x2b0c",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_end",
+          "__eh_frame_hdr_start"
+        ]
+      },
+      {
+        "name": "SXt9gczJC6w#A#A",
+        "value": "0x2bf0",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_hdr_end"
+        ]
+      },
+      {
+        "name": "6L+dPFtbs9I#A#A",
+        "value": "0x4000",
+        "size": 0,
+        "linker_names": [
+          "__data_relro_start"
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "6sJWiWSRuqk#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "9BcDykPmo1I#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "Q2V+iqvjgC0#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "hcuQgD53UxM#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "8zTFvBIAIN8#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "eLdDw6l0-bU#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "zl7hupSO0C0#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "Mv1zUObHvXI#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "gQX+4GDQjpM#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "j4ViWNHEgww#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "5TjaJwkLWxE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "tIhsqj0qsFE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "1G3lF1Gg1k8#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "UK2Tl2DWUns#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "4wSze92BhLI#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "6UgtwV+0zb4#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "1jfXLRVzisc#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "onNY9Byn-W8#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "PGhQHd-dzv8#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "vSMAm3cxYTY#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "cQke9UuBQOk#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "IuxnUuXk6Bg#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "kUpgrXIrz7Q#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "viiwFMaNamA#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "LwG8g3niqwA#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "module_stop",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "module_start",
+        "value": "0x0",
+        "size": 0
+      }
+    ]
+  },
+  {
+    "name": "hen_rest_keeper",
+    "self_bytes": 54832,
+    "type": "Orbis PRX",
+    "init": "0x20",
+    "fini": "0x40",
+    "exports": [
+      {
+        "name": "gAjvCUHeAbE#A#A",
+        "value": "0x20",
+        "size": 18,
+        "linker_names": [
+          "_init"
+        ]
+      },
+      {
+        "name": "BaOKcng8g88#A#A",
+        "value": "0xa20",
+        "size": 655,
+        "linker_names": [
+          "module_start"
+        ]
+      },
+      {
+        "name": "4k+5la20zT8#A#A",
+        "value": "0x40",
+        "size": 18,
+        "linker_names": [
+          "_fini"
+        ]
+      },
+      {
+        "name": "KpDMrPHvt3Q#A#A",
+        "value": "0x1f10",
+        "size": 120,
+        "linker_names": [
+          "module_stop"
+        ]
+      },
+      {
+        "name": "OxgYRA+BVJo#A#A",
+        "value": "0x60",
+        "size": 29,
+        "linker_names": [
+          "sys_sdk_version"
+        ]
+      },
+      {
+        "name": "kLOul-mCMU0#A#A",
+        "value": "0x260",
+        "size": 0,
+        "linker_names": [
+          "orbis_syscall"
+        ]
+      },
+      {
+        "name": "yxbLcb2i5UQ#A#A",
+        "value": "0x80",
+        "size": 31,
+        "linker_names": [
+          "sys_sdk_cmd"
+        ]
+      },
+      {
+        "name": "xaitJOEeT9g#A#A",
+        "value": "0xa0",
+        "size": 33,
+        "linker_names": [
+          "sys_sdk_jailbreak"
+        ]
+      },
+      {
+        "name": "hiIshXvJxMM#A#A",
+        "value": "0xd0",
+        "size": 44,
+        "linker_names": [
+          "sys_sdk_unjailbreak"
+        ]
+      },
+      {
+        "name": "7h+Qs2Xtdi4#A#A",
+        "value": "0x100",
+        "size": 33,
+        "linker_names": [
+          "sys_sdk_proc_info"
+        ]
+      },
+      {
+        "name": "wcP2oDbMG3s#A#A",
+        "value": "0x130",
+        "size": 33,
+        "linker_names": [
+          "sys_sdk_proc_rw"
+        ]
+      },
+      {
+        "name": "Zn-JvGNXVlo#A#A",
+        "value": "0x160",
+        "size": 148,
+        "linker_names": [
+          "sys_sdk_proc_prx_load"
+        ]
+      },
+      {
+        "name": "2ulG4K1TKks#A#A",
+        "value": "0x200",
+        "size": 94,
+        "linker_names": [
+          "sys_sdk_proc_prx_unload"
+        ]
+      },
+      {
+        "name": "EZmVfH-6cvg#A#A",
+        "value": "0x290",
+        "size": 33,
+        "linker_names": [
+          "sys_dynlib_dlsym"
+        ]
+      },
+      {
+        "name": "guFR7i2FiOw#A#A",
+        "value": "0x2c0",
+        "size": 36,
+        "linker_names": [
+          "sys_dynlib_load_prx"
+        ]
+      },
+      {
+        "name": "CCXWFepRUjM#A#A",
+        "value": "0x2f0",
+        "size": 192,
+        "linker_names": [
+          "probe_log"
+        ]
+      },
+      {
+        "name": "KHwj8-ExNWo#A#A",
+        "value": "0x3b0",
+        "size": 100,
+        "linker_names": [
+          "probe_notify"
+        ]
+      },
+      {
+        "name": "nYvru1dJDiU#A#A",
+        "value": "0x420",
+        "size": 271,
+        "linker_names": [
+          "probe_process_report"
+        ]
+      },
+      {
+        "name": "PZ1UTdGg7kM#A#A",
+        "value": "0x530",
+        "size": 770,
+        "linker_names": [
+          "probe_find_process"
+        ]
+      },
+      {
+        "name": "iOv8dUb-c1w#A#A",
+        "value": "0x840",
+        "size": 120,
+        "linker_names": [
+          "probe_same_process"
+        ]
+      },
+      {
+        "name": "ZMfE8zgw4F8#A#A",
+        "value": "0x8c0",
+        "size": 85,
+        "linker_names": [
+          "probe_lock_file"
+        ]
+      },
+      {
+        "name": "oDrg7Iq+YaY#A#A",
+        "value": "0x920",
+        "size": 244,
+        "linker_names": [
+          "probe_write_text"
+        ]
+      },
+      {
+        "name": "uTyttM13qVc#A#A",
+        "value": "0x3110",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_start"
+        ]
+      },
+      {
+        "name": "QYt0E02im8E#A#A",
+        "value": "0x34a4",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_end",
+          "__eh_frame_hdr_start"
+        ]
+      },
+      {
+        "name": "qGej9rktGjM#A#A",
+        "value": "0x34a4",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_end",
+          "__eh_frame_hdr_start"
+        ]
+      },
+      {
+        "name": "SXt9gczJC6w#A#A",
+        "value": "0x3570",
+        "size": 0,
+        "linker_names": [
+          "__eh_frame_hdr_end"
+        ]
+      },
+      {
+        "name": "6L+dPFtbs9I#A#A",
+        "value": "0x4000",
+        "size": 0,
+        "linker_names": [
+          "__data_relro_start"
+        ]
+      }
+    ],
+    "imports": [
+      {
+        "name": "6sJWiWSRuqk#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "9BcDykPmo1I#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "Q2V+iqvjgC0#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "hcuQgD53UxM#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "8zTFvBIAIN8#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "eLdDw6l0-bU#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "zl7hupSO0C0#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "Mv1zUObHvXI#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "gQX+4GDQjpM#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "j4ViWNHEgww#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "5TjaJwkLWxE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "tIhsqj0qsFE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "1G3lF1Gg1k8#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "UK2Tl2DWUns#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "4wSze92BhLI#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "6UgtwV+0zb4#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "Cg4srZ6TKbU#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "1jfXLRVzisc#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "j2AIqSqJP0w#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "Ovb2dSJOAuE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "1Pk0qZQGeWo#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "onNY9Byn-W8#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "eV9wAD2riIA#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "1-LFLmRFxxM#B#B",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "module_stop",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "module_start",
+        "value": "0x0",
+        "size": 0
+      }
+    ]
+  },
+  {
+    "name": "hen_rest_start",
+    "type": "flat payload",
+    "bytes": 12452,
+    "entry": 0,
+    "memory_extent": 12452,
+    "dynamic_dependencies": false,
+    "identity_diagnostic_only": false
+  }
+]

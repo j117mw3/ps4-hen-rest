@@ -1,0 +1,24 @@
+{
+  "probe_version": "0.3.0",
+  "build_id": "030-launchpad-4",
+  "payload_mode": "starter",
+  "payload_sdk_commit": "b7326416c23ce14639e9180a24093bdc5eedb579",
+  "built_utc": "2026-10-10T14:59:51.6103102Z",
+  "artifacts": [
+    {
+      "name": "hen_rest_start.bin",
+      "bytes": 12452,
+      "sha256": "7abf0a4eff7125a073f4527e80353dff216c2fb5f83a667558481530179a4f97"
+    },
+    {
+      "name": "hen_rest_hook.prx",
+      "bytes": 55296,
+      "sha256": "b012ac8213602832186e29ae617ffeebc185b091f8219688171b37923c999ccc"
+    },
+    {
+      "name": "hen_rest_keeper.prx",
+      "bytes": 54832,
+      "sha256": "32e52dbdc6748d414e436ac07f29ef554470830b18caef15ed9f8a1920655888"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+.toolchains/
+GoldHEN_Plugins_SDK/
+.local/
+keeper/deployment/
+keeper/logs/
+keeper/monitor/
+keeper/audit/
+keeper/build/*
+!keeper/build/hen_rest_hook.oelf
+!keeper/build/hen_rest_keeper.oelf
+__pycache__/
+*.pyc
