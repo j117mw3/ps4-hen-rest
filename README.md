@@ -88,11 +88,16 @@ HEN Rest fault. An earlier intermittent wake dialog has no established cause.
 | Duplicate execution: one keeper worker and one patch | Verified |
 | AutoRun Queue entry enabled | Visually confirmed |
 | Automatic startup after a fresh GoldHEN load without a PC | Unverified |
-| Replacement hook readiness after Rest Mode wake | Unverified |
+| Hook readiness notification after Rest Mode wake | Verified (user-reported notification) |
 | A subsequent shutdown request redirected by this build | Unverified |
 
-See [observed results](docs/VERIFICATION.md). No further console checks were
-performed for publication. This preview makes no long-term stability or broader
+The console user subsequently confirmed that, after waking from Rest Mode,
+the hook notification reappeared indicating it was enabled and listening.
+This verifies the visible readiness notification for that wake cycle. Process
+lifetime records and a subsequent shutdown redirect were not captured in this
+follow-up. A full PS4 restart with a fresh GoldHEN load is a separate check.
+
+See [observed results](docs/VERIFICATION.md). This preview makes no long-term stability or broader
 firmware compatibility claims. Physical-button and other shutdown paths are unverified.
 
 ## Remove HEN Rest

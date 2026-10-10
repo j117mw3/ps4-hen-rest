@@ -109,8 +109,10 @@ restores a matching staging backup and refuses files changed since deployment.
 It does not force-unload resident code. Console backups and raw logs stay local.
 
 This is an experimental preview for one firmware and the exact tested GoldHEN
-build. Fresh-load AutoRun, wake restoration and a subsequent redirect remain
-unverified for v0.3.0; see [observed results](../docs/VERIFICATION.md). Host checks and
+build. The owner confirmed the hook's enabled/listening notification returned
+after Rest Mode wake. This is recorded as verified by user report. Fresh-load
+AutoRun and a subsequent redirect remain unverified for v0.3.0; see
+[observed results](../docs/VERIFICATION.md). Host checks and
 FTP verification do not establish runtime compatibility or long-term stability.
 Physical-button/remote shutdown coverage and every shutdown path are unverified.
 The earlier intermittent wake dialog has no established faulting module or cause.

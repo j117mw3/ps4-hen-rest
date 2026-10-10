@@ -5,8 +5,9 @@
 Build: 030-launchpad-4.
 Firmware guard: 13.520.001 / 0x13520001.
 GoldHEN build reported by the console user: **2.4b18.12**.
-LaunchPad activation and duplicate execution passed on this build. AutoRun,
-fresh-load startup without a PC connection and Rest Mode restoration remain unverified.
+LaunchPad activation and duplicate execution passed on this build. After publication,
+the console user confirmed the hook readiness notification returned after Rest Mode
+wake. Fresh-load AutoRun without a PC connection remains unverified.
 The AutoRun Queue entry was visually confirmed enabled in a user-supplied photo.
 That configuration does not establish execution after a fresh GoldHEN load.
 
@@ -27,13 +28,26 @@ Console observations for this release:
 - **Passed:** Duplicate execution leaves one worker and one patch; no second module load,
   worker creation or patch write was recorded, and matched ready records were unchanged.
 - **Unverified:** AutoRun starts HEN Rest after a fresh GoldHEN load, without a PC dependency.
-- **Unverified:** Rest Mode/wake replaces ShellUI and the new process receives a ready hook.
+- **Verified by user report:** After Rest Mode wake, the hook notification reappeared
+  indicating that it was enabled and listening. This confirms the visible readiness
+  notification for that cycle; no new process-lifetime record or Klog capture was obtained.
 - **Unverified:** A subsequent shutdown request is redirected by this build.
 
 The owner requested publication as an experimental prerelease with these remaining
 checks explicitly unverified, and requested no further PS4 checks. Successful
 payload-context SDK loading was recorded during the verified LaunchPad run.
 The tested binaries were packaged unchanged, without rebuilding for publication.
+
+### Post-publication Rest Mode report
+
+The owner subsequently reported a normal Rest Mode/wake cycle followed by the
+hook's enabled/listening notification. The observed wake behavior is recorded as
+verified by that report. It does not establish a full PS4 restart, fresh GoldHEN
+AutoRun execution, a subsequent redirected shutdown, or long-term stability.
+No additional console connections or scheduled checks were started to obtain
+this report. The original v0.3.0 installation ZIP and tag retain the evidence
+snapshot from initial publication; this follow-up is documented on the main branch
+and the release page.
 
 The successful run used process start timestamps from the measured 1096-byte
 process record rather than the unavailable kernel boot-time query. Firmware
