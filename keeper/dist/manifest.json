@@ -1,24 +1,24 @@
 {
-  "probe_version": "0.3.0",
-  "build_id": "030-launchpad-4",
+  "probe_version": "0.3.1",
+  "build_id": "031-native-3",
   "payload_mode": "starter",
   "payload_sdk_commit": "b7326416c23ce14639e9180a24093bdc5eedb579",
-  "built_utc": "2026-10-10T14:59:51.6103102Z",
+  "built_utc": "2026-10-12T10:09:05.4551543Z",
   "artifacts": [
     {
       "name": "hen_rest_start.bin",
       "bytes": 12452,
-      "sha256": "7abf0a4eff7125a073f4527e80353dff216c2fb5f83a667558481530179a4f97"
+      "sha256": "ef51a35733699dacb59bbd2a550b9f4cb6488a00ad2d5ea72b1b758979bdf0ba"
     },
     {
       "name": "hen_rest_hook.prx",
-      "bytes": 55296,
-      "sha256": "b012ac8213602832186e29ae617ffeebc185b091f8219688171b37923c999ccc"
+      "bytes": 54816,
+      "sha256": "6bac17cfb93c22329793247bfacaaa3d1b41a05b292e34ccd0a2469b4d817536"
     },
     {
       "name": "hen_rest_keeper.prx",
-      "bytes": 54832,
-      "sha256": "32e52dbdc6748d414e436ac07f29ef554470830b18caef15ed9f8a1920655888"
+      "bytes": 54912,
+      "sha256": "2d55cbbda8065a6fa80aff25e612c206424e9587b88330dbfb01a13a59a15078"
     }
   ]
 }

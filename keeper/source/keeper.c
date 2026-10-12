@@ -104,7 +104,7 @@ static int stage_module(const char *sandbox)
 
 enum hook_state { HOOK_WAITING, HOOK_LOADING, HOOK_READY, HOOK_FAILED };
 
-static int hook_record(const char *sandbox, struct process_identity target)
+static int hook_record(const char *sandbox, struct process_identity target, unsigned long long *sequence)
 {
     char path[140];
     snprintf(path, sizeof(path), "%s/Temp/%s/status.txt", sandbox, PROBE_STAGE);
@@ -114,7 +114,10 @@ static int hook_record(const char *sandbox, struct process_identity target)
     size_t count = sceKernelRead(fd, value, sizeof(value) - 1);
     sceKernelClose(fd);
     if (!count || count >= sizeof(value)) return HOOK_WAITING;
-    return parse_hook_record(value, PROBE_VERSION, PROBE_BUILD, target);
+    int state = parse_hook_record(value, PROBE_VERSION, PROBE_BUILD, target);
+    const char *seq = strstr(value, " seq=");
+    if (state == HOOK_READY && (!seq || sscanf(seq, " seq=%llu", sequence) != 1 || !*sequence)) return HOOK_WAITING;
+    return state;
 }
 
 static void keeper_status(const char *state, int core_pid, struct process_identity target,
@@ -144,9 +147,14 @@ static void *run_keeper(void *unused)
     int settled = 0, attempts = 0, load_ticks = 0, unavailable_reported = 0;
     enum hook_state state = HOOK_WAITING;
     unsigned long long handle = 0;
+    unsigned long long last_sequence = 0;
+    int stale_ticks = 0;
     keeper_status("waiting", info.pid, active, current, attempts, handle);
     probe_log("KEEPER", "KEEPER_STARTED pid=%d version=%s", info.pid, PROBE_VERSION);
     while (!atomic_load(&stopping)) {
+        struct process_identity live_core = {0};
+        if (!probe_find_process("SceShellCore", &live_core) || live_core.pid != info.pid) goto wait;
+        core_identity = live_core;
         char sandbox[80] = "";
         struct process_identity target = {0};
         if (!probe_find_process("SceShellUI", &target) || !find_sandbox(sandbox, sizeof(sandbox))) {
@@ -158,7 +166,6 @@ static void *run_keeper(void *unused)
             }
             goto wait;
         }
-        int returned = unavailable_reported;
         unavailable_reported = 0;
         /* One installation per process lifetime, even when the sandbox path
          * is reused. Path changes also settle again before any action. */
@@ -167,6 +174,7 @@ static void *run_keeper(void *unused)
             snprintf(current, sizeof(current), "%s", sandbox);
             settled = attempts = load_ticks = 0;
             handle = 0;
+            last_sequence = 0; stale_ticks = 0;
             state = HOOK_WAITING;
             probe_log("KEEPER", "NEW_PROCESS pid=%d cookie=%llx start_s=%lld start_us=%lld sandbox=%s", active.pid,
                       (unsigned long long) active.cookie, active.start_seconds, active.start_microseconds, current);
@@ -175,17 +183,30 @@ static void *run_keeper(void *unused)
             snprintf(current, sizeof(current), "%s", sandbox);
             settled = 0;
         }
-        if (state == HOOK_READY || state == HOOK_FAILED) {
-            if (returned) keeper_status(state == HOOK_READY ? "ready" : "failed", info.pid, active, current, attempts, handle);
+        if (state == HOOK_FAILED) {
+            keeper_status("failed", info.pid, active, current, attempts, handle);
             goto wait;
         }
-        int record = hook_record(current, active);
-        if (record == HOOK_READY) {
+        unsigned long long sequence = 0;
+        int record = hook_record(current, active, &sequence);
+        int fresh = record == HOOK_READY && last_sequence && sequence > last_sequence;
+        if (record == HOOK_READY && sequence > last_sequence) { last_sequence = sequence; stale_ticks = 0; }
+        else ++stale_ticks;
+        if (fresh || (state == HOOK_READY && record == HOOK_READY && stale_ticks < 4)) {
+            if (state != HOOK_READY) probe_log("KEEPER", "HOOK_CONFIRMED pid=%d seq=%llu", active.pid, sequence);
             state = HOOK_READY;
-            probe_log("KEEPER", "HOOK_CONFIRMED pid=%d cookie=%llx sandbox=%s", active.pid,
-                      (unsigned long long) active.cookie, current);
             keeper_status("ready", info.pid, active, current, attempts, handle);
             goto wait;
+        }
+        /* A leftover ready marker is never grounds for loading another copy.
+         * Wait for its sequence to advance; timeout remains fail-closed. */
+        if (record == HOOK_READY && state == HOOK_WAITING) { state = HOOK_LOADING; load_ticks = 0; }
+        if (state == HOOK_READY) {
+            /* A ready hook refreshes its acknowledgment. Never inject again
+             * into this process if its marker disappears or reports failure. */
+            state = HOOK_LOADING;
+            load_ticks = 0;
+            keeper_status("loading", info.pid, active, current, attempts, handle);
         }
         if (state == HOOK_LOADING) {
             if (record == HOOK_FAILED || ++load_ticks >= 30) {

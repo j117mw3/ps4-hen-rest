@@ -6,9 +6,9 @@
 #include "process_records.h"
 #include "startup_records.h"
 
-#define VERSION "0.3.0"
-#define BUILD "030-launchpad-4"
-#define KEEPER_PATH "/data/GoldHEN/plugins/hen_rest_keeper_030r4.prx"
+#define VERSION "0.3.1"
+#define BUILD "031-native-3"
+#define KEEPER_PATH "/data/GoldHEN/plugins/hen_rest_keeper_031r3.prx"
 #define STATUS_PATH "/data/GoldHEN/hen_rest_status.txt"
 #define LOCK_PATH "/data/GoldHEN/hen_rest.lock"
 #define RECEIPT_PATH "/data/GoldHEN/hen_rest_start_receipt.txt"
@@ -50,6 +50,11 @@ static int find_named_process(const char *name, struct process_identity *identit
     bytes = capacity;
     errno = 0; long result = (long) syscall(202, mib, 3, dump, &bytes, 0, 0);
     int ok = result == 0 && bytes <= capacity && parse_process_records(dump, bytes, name, identity);
+    if (ok && !strcmp(name, "SceShellUI")) {
+        struct process_identity anchor = {0};
+        ok = parse_process_records(dump, bytes, "SceShellCore", &anchor) &&
+             relative_process_identity(identity, anchor);
+    }
     snprintf(log, sizeof(log), "[HEN_REST_START] PROCESS_READ status=%ld errno=%d bytes=%llu parsed=%d\n", result, errno, (unsigned long long)bytes, ok);
     if (verbose) syscall(601, 7, log, 0);
     if (verbose && result == 0 && bytes <= capacity && !ok) {

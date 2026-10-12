@@ -22,9 +22,9 @@ build/GoldHEN.o: $(GOLDHEN_SDK)/source/GoldHEN.c Makefile | build
 	$(CC) $(CFLAGS) -c $< -o $@
 build/Syscall.o: $(GOLDHEN_SDK)/source/Syscall.c Makefile | build
 	$(CC) $(CFLAGS) -c $< -o $@
-build/%.o: source/%.c source/probe_common.h source/process_records.h source/hook_record.h source/startup_records.h source/mono_api.h Makefile | build
+build/%.o: source/%.c source/probe_common.h source/process_records.h source/hook_record.h source/startup_records.h source/native_method.h Makefile | build
 	$(CC) $(CFLAGS) -c $< -o $@
-build/hen_rest_hook.elf: $(COMMON) build/rest_redirect.o build/mono_api.o
+build/hen_rest_hook.elf: $(COMMON) build/rest_redirect.o build/native_method.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@
 build/hen_rest_keeper.elf: $(COMMON) build/keeper.o
 	$(LD) $(LDFLAGS) $^ $(LIBS) -o $@

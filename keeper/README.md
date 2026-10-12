@@ -1,23 +1,25 @@
 # HEN Rest — PS4 Shutdown-to-Rest Mode Plugin
 
-v0.3.0 Experimental Preview: one-shot GoldHEN LaunchPad payload, ShellCore keeper, and
+v0.3.1 Experimental Preview: one-shot GoldHEN LaunchPad payload, ShellCore keeper, and
 ShellUI hook. No game needs to be opened and no game registration is installed.
 The current target is **PS4 firmware 13.520.001** (`0x13520001`).
 
 ## Installation and activation
 
-1. Upload `dist/hen_rest_start.bin` to `/data/payloads/hen_rest_start.bin`.
+1. Upload `dist/hen_rest_start.bin` to `/data/payloads/hen_rest_start_031r3.bin`.
 2. Upload `dist/hen_rest_keeper.prx` as
-   `/data/GoldHEN/plugins/hen_rest_keeper_030r4.prx` and `dist/hen_rest_hook.prx` as
-   `/data/GoldHEN/plugins/hen_rest_hook_030r4.prx`.
-3. Remove active HEN Rest game starters from `plugins.ini`. Preserve other plugins.
+   `/data/GoldHEN/plugins/hen_rest_keeper_031r3.prx` and `dist/hen_rest_hook.prx` as
+   `/data/GoldHEN/plugins/hen_rest_hook_031r3.prx`.
+3. Before upgrading, remove the previous HEN Rest entry from AutoRun Queue with
+   Square. Upload all three matching files. Remove active HEN Rest game starters
+   from `plugins.ini` while preserving other plugins.
 4. When replacing an older resident build, use **Restart PS4**, reload GoldHEN,
    and stay on the home screen. Do not force-unload a live hook.
-5. Run `hen_rest_start.bin` from GoldHEN LaunchPad. Wait for the ready notification
+5. Run `hen_rest_start_031r3.bin` from GoldHEN LaunchPad. Wait for the ready notification
    and a current `ready` status before trying Turn Off PS4.
-6. After the manual and duplicate-run checks pass, highlight `hen_rest_start.bin`
+6. After the manual and duplicate-run checks pass, highlight `hen_rest_start_031r3.bin`
    in LaunchPad and press **Square: Add to AutoRun queue**. Open AutoRun Queue
-   and confirm exactly one entry for `/data/payloads/hen_rest_start.bin`, checked
+   and confirm exactly one entry for `/data/payloads/hen_rest_start_031r3.bin`, checked
    enabled. These controller steps were observed on GoldHEN 2.4b18.12.
    Confirm startup after a fresh GoldHEN load.
 
@@ -36,20 +38,27 @@ kernel process cookie (redacted on this tested firmware), including when
 sandbox folder names repeat. A build-specific record must match that process
 before the keeper reports readiness. A module handle alone means **loading**.
 
-The hook resolves the native five-argument `PowerManager.RequestStateChange`
-method through Mono. After firmware and exact 14-byte instruction guards pass,
-shutdown state 2 becomes suspend state 3 with EAP boot flag 1. Other state
-requests pass through. A rejected suspend request does not fall back to shutdown.
-The keeper observes normal process replacement after Rest Mode and installs a
-replacement hook. No PC service is needed by the payload, keeper, or hook.
+The hook locates the native five-argument `PowerManager.RequestStateChange`
+method through existing module metadata, without calling Mono or loading a system
+dependency. It scans module handles 0–65535, matches the exact image fingerprint,
+and verifies a 256-byte instruction digest plus the original 14-byte prologue.
+Shutdown state 2 becomes suspend state 3 with EAP boot flag 1; other requests pass
+through. Rejected suspend requests never fall back to shutdown.
+
+ShellUI lifetime is its start interval relative to ShellCore from the same process
+snapshot. This cancels shared wall-clock changes across sleep. The keeper refreshes
+Core's current identity, tracks replacement processes even when sandbox paths repeat,
+and installs one replacement hook per lifetime. No PC service is required.
 
 ## Status and duplicate protection
 
 `/data/GoldHEN/hen_rest_status.txt` distinguishes `starting`, `waiting`, `loading`,
 `ready`, and `failed`. The hook writes a process/build marker under
-`/Temp/hen_rest_030r4/status.txt` inside its own sandbox. Klog includes
+`/Temp/hen_rest_031r3/status.txt` inside its own sandbox. Klog includes
 `KEEPER_STARTED`, `NEW_PROCESS`, `HOOK_LOAD`, `HOOK_READY`, `HOOK_CONFIRMED`, and
-explicit failures. Enable GoldHEN TTY Redirect when collecting plugin output.
+explicit failures. The hook refreshes a sequence every two seconds; the keeper
+requires advancement before reporting ready and monitors freshness afterward.
+A stale marker cannot confirm success. Enable GoldHEN TTY Redirect when collecting plugin output.
 
 Descriptor-owned locks serialize starter calls and allow one keeper worker.
 Lock files are not deleted: the kernel releases their locks on process exit.
@@ -108,13 +117,12 @@ before removing its files. `deploy.py PS4_IP --restore BACKUP --fresh-session`
 restores a matching staging backup and refuses files changed since deployment.
 It does not force-unload resident code. Console backups and raw logs stay local.
 
-This is an experimental preview for one firmware and the exact tested GoldHEN
-build. The owner confirmed the hook's enabled/listening notification returned
-after Rest Mode wake. This is recorded as verified by user report. Fresh-load
-AutoRun and a subsequent redirect remain unverified for v0.3.0; see
-[observed results](../docs/VERIFICATION.md). Host checks and
-FTP verification do not establish runtime compatibility or long-term stability.
-Physical-button/remote shutdown coverage and every shutdown path are unverified.
-The earlier intermittent wake dialog has no established faulting module or cause.
+This experimental preview targets one firmware and the reported GoldHEN build.
+Captured checks confirmed activation, shutdown redirection, wake restoration, and
+a subsequent redirect by the restored hook. The owner reported further repeated
+cycles without issues. Fresh-load AutoRun on this build, long-term stability,
+broader firmware support and physical-button/remote shutdown coverage are unverified.
+See [observed results](../docs/VERIFICATION.md). Host checks and FTP verification
+alone do not establish runtime compatibility.
 
 Project source is GPL-3.0. Dependency notices must accompany distributed builds.

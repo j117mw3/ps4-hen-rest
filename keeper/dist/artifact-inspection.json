@@ -1,7 +1,7 @@
 [
   {
     "name": "hen_rest_hook",
-    "self_bytes": 55296,
+    "self_bytes": 54816,
     "type": "Orbis PRX",
     "init": "0x20",
     "fini": "0x40",
@@ -16,7 +16,7 @@
       },
       {
         "name": "BaOKcng8g88#A#A",
-        "value": "0xa20",
+        "value": "0xb50",
         "size": 139,
         "linker_names": [
           "module_start"
@@ -32,8 +32,8 @@
       },
       {
         "name": "KpDMrPHvt3Q#A#A",
-        "value": "0xd20",
-        "size": 90,
+        "value": "0xdc0",
+        "size": 117,
         "linker_names": [
           "module_stop"
         ]
@@ -153,14 +153,14 @@
       {
         "name": "PZ1UTdGg7kM#A#A",
         "value": "0x530",
-        "size": 770,
+        "size": 480,
         "linker_names": [
           "probe_find_process"
         ]
       },
       {
         "name": "iOv8dUb-c1w#A#A",
-        "value": "0x840",
+        "value": "0x970",
         "size": 120,
         "linker_names": [
           "probe_same_process"
@@ -168,7 +168,7 @@
       },
       {
         "name": "ZMfE8zgw4F8#A#A",
-        "value": "0x8c0",
+        "value": "0x9f0",
         "size": 85,
         "linker_names": [
           "probe_lock_file"
@@ -176,87 +176,23 @@
       },
       {
         "name": "oDrg7Iq+YaY#A#A",
-        "value": "0x920",
+        "value": "0xa50",
         "size": 244,
         "linker_names": [
           "probe_write_text"
         ]
       },
       {
-        "name": "zJ9PC9eh5Kk#A#A",
-        "value": "0x1220",
-        "size": 1232,
+        "name": "UBy-169njA4#A#A",
+        "value": "0x1300",
+        "size": 558,
         "linker_names": [
-          "probe_resolve_mono"
-        ]
-      },
-      {
-        "name": "5a8b+s6HtaA#A#A",
-        "value": "0xc048",
-        "size": 8,
-        "linker_names": [
-          "mono_get_root_domain"
-        ]
-      },
-      {
-        "name": "qqUxjwJzc2I#A#A",
-        "value": "0xc050",
-        "size": 8,
-        "linker_names": [
-          "mono_thread_attach"
-        ]
-      },
-      {
-        "name": "dCeihPtadCM#A#A",
-        "value": "0xc060",
-        "size": 8,
-        "linker_names": [
-          "mono_domain_assembly_open"
-        ]
-      },
-      {
-        "name": "xP4EC4Sp9GI#A#A",
-        "value": "0xc068",
-        "size": 8,
-        "linker_names": [
-          "mono_assembly_get_image"
-        ]
-      },
-      {
-        "name": "bzxTZSnnB38#A#A",
-        "value": "0xc070",
-        "size": 8,
-        "linker_names": [
-          "mono_class_from_name"
-        ]
-      },
-      {
-        "name": "H5IByLixeaI#A#A",
-        "value": "0xc078",
-        "size": 8,
-        "linker_names": [
-          "mono_class_get_method_from_name"
-        ]
-      },
-      {
-        "name": "6t5G5dYpMVg#A#A",
-        "value": "0xc080",
-        "size": 8,
-        "linker_names": [
-          "mono_aot_get_method"
-        ]
-      },
-      {
-        "name": "1gfowbDUZAI#A#A",
-        "value": "0xc058",
-        "size": 8,
-        "linker_names": [
-          "mono_thread_detach"
+          "probe_find_native_power_method"
         ]
       },
       {
         "name": "uTyttM13qVc#A#A",
-        "value": "0x2708",
+        "value": "0x22d8",
         "size": 0,
         "linker_names": [
           "__eh_frame_start"
@@ -264,7 +200,7 @@
       },
       {
         "name": "QYt0E02im8E#A#A",
-        "value": "0x2b0c",
+        "value": "0x270c",
         "size": 0,
         "linker_names": [
           "__eh_frame_end",
@@ -273,7 +209,7 @@
       },
       {
         "name": "qGej9rktGjM#A#A",
-        "value": "0x2b0c",
+        "value": "0x270c",
         "size": 0,
         "linker_names": [
           "__eh_frame_end",
@@ -282,7 +218,7 @@
       },
       {
         "name": "SXt9gczJC6w#A#A",
-        "value": "0x2bf0",
+        "value": "0x27f8",
         "size": 0,
         "linker_names": [
           "__eh_frame_hdr_end"
@@ -344,17 +280,22 @@
         "size": 0
       },
       {
+        "name": "Ovb2dSJOAuE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "tIhsqj0qsFE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
         "name": "j4ViWNHEgww#C#C",
         "value": "0x0",
         "size": 0
       },
       {
         "name": "5TjaJwkLWxE#C#C",
-        "value": "0x0",
-        "size": 0
-      },
-      {
-        "name": "tIhsqj0qsFE#C#C",
         "value": "0x0",
         "size": 0
       },
@@ -404,22 +345,7 @@
         "size": 0
       },
       {
-        "name": "IuxnUuXk6Bg#B#B",
-        "value": "0x0",
-        "size": 0
-      },
-      {
         "name": "kUpgrXIrz7Q#B#B",
-        "value": "0x0",
-        "size": 0
-      },
-      {
-        "name": "viiwFMaNamA#C#C",
-        "value": "0x0",
-        "size": 0
-      },
-      {
-        "name": "LwG8g3niqwA#B#B",
         "value": "0x0",
         "size": 0
       },
@@ -437,7 +363,7 @@
   },
   {
     "name": "hen_rest_keeper",
-    "self_bytes": 54832,
+    "self_bytes": 54912,
     "type": "Orbis PRX",
     "init": "0x20",
     "fini": "0x40",
@@ -452,7 +378,7 @@
       },
       {
         "name": "BaOKcng8g88#A#A",
-        "value": "0xa20",
+        "value": "0xb50",
         "size": 655,
         "linker_names": [
           "module_start"
@@ -468,7 +394,7 @@
       },
       {
         "name": "KpDMrPHvt3Q#A#A",
-        "value": "0x1f10",
+        "value": "0x2200",
         "size": 120,
         "linker_names": [
           "module_stop"
@@ -589,14 +515,14 @@
       {
         "name": "PZ1UTdGg7kM#A#A",
         "value": "0x530",
-        "size": 770,
+        "size": 480,
         "linker_names": [
           "probe_find_process"
         ]
       },
       {
         "name": "iOv8dUb-c1w#A#A",
-        "value": "0x840",
+        "value": "0x970",
         "size": 120,
         "linker_names": [
           "probe_same_process"
@@ -604,7 +530,7 @@
       },
       {
         "name": "ZMfE8zgw4F8#A#A",
-        "value": "0x8c0",
+        "value": "0x9f0",
         "size": 85,
         "linker_names": [
           "probe_lock_file"
@@ -612,7 +538,7 @@
       },
       {
         "name": "oDrg7Iq+YaY#A#A",
-        "value": "0x920",
+        "value": "0xa50",
         "size": 244,
         "linker_names": [
           "probe_write_text"
@@ -620,7 +546,7 @@
       },
       {
         "name": "uTyttM13qVc#A#A",
-        "value": "0x3110",
+        "value": "0x3440",
         "size": 0,
         "linker_names": [
           "__eh_frame_start"
@@ -628,7 +554,7 @@
       },
       {
         "name": "QYt0E02im8E#A#A",
-        "value": "0x34a4",
+        "value": "0x3804",
         "size": 0,
         "linker_names": [
           "__eh_frame_end",
@@ -637,7 +563,7 @@
       },
       {
         "name": "qGej9rktGjM#A#A",
-        "value": "0x34a4",
+        "value": "0x3804",
         "size": 0,
         "linker_names": [
           "__eh_frame_end",
@@ -646,7 +572,7 @@
       },
       {
         "name": "SXt9gczJC6w#A#A",
-        "value": "0x3570",
+        "value": "0x38d8",
         "size": 0,
         "linker_names": [
           "__eh_frame_hdr_end"
@@ -708,17 +634,22 @@
         "size": 0
       },
       {
+        "name": "Ovb2dSJOAuE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
+        "name": "tIhsqj0qsFE#C#C",
+        "value": "0x0",
+        "size": 0
+      },
+      {
         "name": "j4ViWNHEgww#C#C",
         "value": "0x0",
         "size": 0
       },
       {
         "name": "5TjaJwkLWxE#C#C",
-        "value": "0x0",
-        "size": 0
-      },
-      {
-        "name": "tIhsqj0qsFE#C#C",
         "value": "0x0",
         "size": 0
       },
@@ -758,12 +689,12 @@
         "size": 0
       },
       {
-        "name": "Ovb2dSJOAuE#C#C",
+        "name": "1Pk0qZQGeWo#C#C",
         "value": "0x0",
         "size": 0
       },
       {
-        "name": "1Pk0qZQGeWo#C#C",
+        "name": "viiwFMaNamA#C#C",
         "value": "0x0",
         "size": 0
       },

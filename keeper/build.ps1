@@ -10,6 +10,6 @@ $artifacts = @('hen_rest_start.bin', 'hen_rest_hook.prx', 'hen_rest_keeper.prx')
     [ordered]@{ name = $file.Name; bytes = $file.Length; sha256 = (Get-FileHash -LiteralPath $artifactPath -Algorithm SHA256).Hash.ToLowerInvariant() }
 }
 $identityDiagnostic = (Get-Content -LiteralPath (Join-Path $PSScriptRoot 'source/start_payload.c') -Raw) -match '(?m)^#define IDENTITY_DIAGNOSTIC 1\s*$'
-[ordered]@{ probe_version = '0.3.0'; build_id = '030-launchpad-4'; payload_mode = $(if ($identityDiagnostic) { 'identity-diagnostic-only' } else { 'starter' }); payload_sdk_commit = 'b7326416c23ce14639e9180a24093bdc5eedb579'; built_utc = [DateTime]::UtcNow.ToString('o'); artifacts = @($artifacts) } |
+[ordered]@{ probe_version = '0.3.1'; build_id = '031-native-3'; payload_mode = $(if ($identityDiagnostic) { 'identity-diagnostic-only' } else { 'starter' }); payload_sdk_commit = 'b7326416c23ce14639e9180a24093bdc5eedb579'; built_utc = [DateTime]::UtcNow.ToString('o'); artifacts = @($artifacts) } |
     ConvertTo-Json -Depth 5 | Set-Content -LiteralPath (Join-Path $PSScriptRoot 'dist\manifest.json') -Encoding utf8
 $artifacts | Format-Table

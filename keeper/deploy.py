@@ -11,9 +11,9 @@ import struct
 ROOT = Path(__file__).resolve().parent
 CONFIG = "/data/GoldHEN/plugins.ini"
 ARTIFACT_PATHS = {
-    "hen_rest_start.bin": "/data/payloads/hen_rest_start.bin",
-    "hen_rest_keeper.prx": "/data/GoldHEN/plugins/hen_rest_keeper_030r4.prx",
-    "hen_rest_hook.prx": "/data/GoldHEN/plugins/hen_rest_hook_030r4.prx",
+    "hen_rest_start.bin": "/data/payloads/hen_rest_start_031r3.bin",
+    "hen_rest_keeper.prx": "/data/GoldHEN/plugins/hen_rest_keeper_031r3.prx",
+    "hen_rest_hook.prx": "/data/GoldHEN/plugins/hen_rest_hook_031r3.prx",
 }
 OUR_STARTERS = {"/data/GoldHEN/plugins/hen_rest_start_loader.prx",
                 "/data/GoldHEN/plugins/hen_rest_loader.prx"}
@@ -68,8 +68,8 @@ def remove_our_registrations(original):
 
 def load_artifacts():
     manifest = json.loads((ROOT / "dist" / "manifest.json").read_text(encoding="utf-8-sig"))
-    if manifest["probe_version"] != "0.3.0" or {i["name"] for i in manifest["artifacts"]} != ARTIFACT_PATHS.keys():
-        raise ValueError("Expected complete v0.3.0 manifest")
+    if manifest["probe_version"] != "0.3.1" or {i["name"] for i in manifest["artifacts"]} != ARTIFACT_PATHS.keys():
+        raise ValueError("Expected complete v0.3.1 manifest")
     uploads = {}
     for item in manifest["artifacts"]:
         data = (ROOT / "dist" / item["name"]).read_bytes()
@@ -87,7 +87,7 @@ def main():
     parser.add_argument("--port", type=int, default=2121)
     parser.add_argument("--inspect", action="store_true", help="Read-only inventory")
     parser.add_argument("--restore", type=Path, help="Restore this staging operation")
-    parser.add_argument("--fresh-session", action="store_true", help="Confirm no v0.3.0 modules are resident")
+    parser.add_argument("--fresh-session", action="store_true", help="Confirm no v0.3.1 modules are resident")
     args = parser.parse_args()
     if args.restore and not args.fresh_session:
         parser.error("Restore requires a fresh session; never remove resident backing files")
@@ -106,7 +106,7 @@ def main():
         if args.restore:
             record_path = args.restore / "deployment.json"
             record = json.loads(record_path.read_text(encoding="utf-8"))
-            if record["host"] != args.host or record.get("version") != "0.3.0":
+            if record["host"] != args.host or record.get("version") != "0.3.1":
                 raise ValueError("Wrong console or backup version")
             for path in reversed(record["changed"]):
                 if path in record.get("restored", []):
@@ -139,7 +139,7 @@ def main():
         stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
         backup = ROOT / "deployment" / stamp
         backup.mkdir(parents=True)
-        record = {"host": args.host, "version": "0.3.0", "created_utc": stamp, "originals": {},
+        record = {"host": args.host, "version": "0.3.1", "created_utc": stamp, "originals": {},
                   "installed_sha256": {}, "readback_sha256": {}, "changed": []}
         for index, (path, data) in enumerate(originals.items()):
             name = f"original-{index}.bin" if data is not None else None

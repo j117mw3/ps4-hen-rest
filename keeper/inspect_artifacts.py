@@ -99,11 +99,11 @@ if __name__ == "__main__":
     diagnostic = sys.argv[1:] == ["--identity-diagnostic"]
     if sys.argv[1:] and not diagnostic:
         raise ValueError("Unknown inspection option")
-    required = (b"identity diagnostic recorded; nothing loaded", b"IDENTITY_RECORD", b"unsupported firmware") if diagnostic else (b"hen_rest_keeper_030r4.prx", b"unsupported firmware", b"no new worker")
+    required = (b"identity diagnostic recorded; nothing loaded", b"IDENTITY_RECORD", b"unsupported firmware") if diagnostic else (b"hen_rest_keeper_031r3.prx", b"unsupported firmware", b"no new worker")
     for value in required:
         if value not in binary:
             raise ValueError("Payload missing required paths/guard messages")
-    if diagnostic and (b"KEEPER_LOAD" in binary or b"hen_rest_keeper_030r4.prx" in binary):
+    if diagnostic and (b"KEEPER_LOAD" in binary or b"hen_rest_keeper_031r3.prx" in binary):
         raise ValueError("Identity diagnostic must contain no keeper loading path")
     report.append({"name": "hen_rest_start", "type": "flat payload", "bytes": len(binary),
                    "entry": entry, "memory_extent": max(h[3] + h[6] for h in headers if h[0] == 1),

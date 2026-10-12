@@ -3,11 +3,29 @@
  * offsets match the pinned payload SDK. ki_start's timeval at 336/344
  * matches the FreeBSD amd64 layout and the recorded Core/UI launch times
  * (2026-10-10T14:54:41Z diagnostic). Pointers are redacted on this console;
- * never use a zero paddr alone to identify a process lifetime. */
+ * never use a zero paddr alone to identify a process lifetime. Raw ki_start
+ * is wall-clock based, so ShellUI comparisons normalize against current Core. */
 struct process_identity {
     int pid; unsigned long long cookie;
     long long start_seconds, start_microseconds;
 };
+/* Compare ShellUI's start relative to ShellCore from the SAME process dump.
+ * ki_start includes mutable wall-clock boottime. The shared offset cancels.
+ * Bias preserves the existing positive-value validity guard and record format.
+ * Core keeps its raw timestamp for startup receipts; it is refreshed by its
+ * resident worker, whose descriptor lock prevents duplicate workers. */
+static inline int relative_process_identity(struct process_identity *target,
+                                           struct process_identity anchor)
+{
+    if (target->pid <= 0 || anchor.pid <= 0) return 0;
+    long long seconds = target->start_seconds - anchor.start_seconds;
+    long long micros = target->start_microseconds - anchor.start_microseconds;
+    if (micros < 0) { --seconds; micros += 1000000; }
+    if (seconds < 0 || seconds > 1000000000LL) return 0;
+    target->start_seconds = 1000000000LL + seconds;
+    target->start_microseconds = micros;
+    return 1;
+}
 static inline int process_identity_valid(struct process_identity p)
 { return p.pid > 0 && p.start_seconds > 0 && p.start_microseconds >= 0 && p.start_microseconds < 1000000; }
 static inline int same_process_identity(struct process_identity a, struct process_identity b)

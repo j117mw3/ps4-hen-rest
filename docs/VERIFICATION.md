@@ -1,5 +1,57 @@
 # Observed results
 
+## v0.3.1 Experimental Preview
+
+Build **031-native-3**, firmware **13.520.001 / 0x13520001**,
+user-reported GoldHEN **2.4b18.12**. The installation binaries were packaged
+unchanged from the tested manifest; no rebuild was performed for publication.
+
+### Investigation
+
+A preceding candidate captured a fatal ShellUI main-thread mutex assertion,
+exception `0xa0020305` (`SYSTEM_PTHREAD_RUNTIME_ERROR`), inside the Mono runtime
+shortly after hook installation during startup. The UI later showed **CE-36329-3**.
+Concurrent external Mono lookup was suspected, not proven as the exact mutex cause.
+The new hook lookup makes no Mono calls. An intermediate candidate then failed
+restoration because its module search stopped at 4095 while the correct image after
+wake had handle 8381. The final candidate searches through 65535 with image and
+instruction guards intact. Stable process identities and advancing readiness
+acknowledgments address the earlier clock-shift and stale-marker failure modes.
+
+### Captured console observations on October 12, 2026
+
+- Home-screen LaunchPad activation succeeded, with matching native-image fingerprint,
+  instruction digest, patch readback, and current-process keeper readiness.
+- A Turn Off PS4 request was redirected from shutdown 2 to suspend 3 and accepted.
+  The keeper installed a replacement hook in the next ShellUI process; its ready
+  sequence advanced after wake.
+- A direct Enter Rest Mode/wake cycle restored the hook again. The owner reported
+  no errors for this cycle.
+- A later Turn Off PS4 request after wake again produced captured REDIRECT 2→3
+  and accepted=1. Another replacement hook became ready, with advancing status.
+- No new fatal exception/mutex assertion was found in those current-build captures.
+  The owner subsequently reported several additional cycles without issues.
+
+Duplicate suppression was captured on the preceding `031-native-2` candidate;
+the singleton logic is unchanged, but this specific check was not rerun on the
+final build. Host compilation and structural artifact inspection completed before
+hardware testing. Starter FTP readback matched bytes; both PRX files matched all
+expanded ELF program headers and segments against the included `.oelf` files.
+Existing tests are included; no new test-suite execution is claimed for this release.
+
+Fresh-load AutoRun without a PC connection on this exact build, long-term stability,
+all shutdown paths, and broader firmware support remain unverified. Earlier AutoRun
+queue configuration was visually confirmed for v0.3.0; that is not execution evidence
+for v0.3.1. No further console checks are required for this publication.
+
+Raw logs, diagnostic modules, private system binaries, backups, and personal
+screenshots are retained locally and not distributed. Scheduling remains disabled.
+
+## Historical v0.3.0 evidence
+
+The following records describe the previous release and are not current-build claims.
+
+
 ## v0.3.0 Experimental Preview
 
 Build: 030-launchpad-4.

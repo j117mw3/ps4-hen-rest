@@ -58,6 +58,11 @@ int probe_find_process(const char *name, struct process_identity *identity)
     int ok = 0;
     if (orbis_syscall(202, mib, 3, dump, &bytes, NULL, 0) != 0 || bytes > capacity) goto done;
     ok = parse_process_records(dump, bytes, name, identity);
+    if (ok && !strcmp(name, "SceShellUI")) {
+        struct process_identity anchor = {0};
+        ok = parse_process_records(dump, bytes, "SceShellCore", &anchor) &&
+             relative_process_identity(identity, anchor);
+    }
 done:
     free(dump);
     if (!ok) memset(identity, 0, sizeof(*identity));

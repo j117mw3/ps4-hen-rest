@@ -1,5 +1,5 @@
 #include "probe_common.h"
-#include "mono_api.h"
+#include "native_method.h"
 #include <stdbool.h>
 #include <stdatomic.h>
 #include <stdio.h>
@@ -18,7 +18,9 @@ static RequestStateChange original_request;
 static OrbisPthread worker_thread;
 static atomic_int started;
 static atomic_int must_remain_resident;
+static atomic_int stopping;
 static int worker_created;
+static unsigned long long status_sequence;
 
 static int write_status(const char *state)
 {
@@ -31,12 +33,12 @@ static int write_status(const char *state)
     memset(&own, 0, sizeof(own));
     if (sys_sdk_proc_info(&own) != 0 || own.pid != identity.pid) return 0;
     char text[240];
-    snprintf(text, sizeof(text), "HEN_REST_HOOK %s build=%s pid=%d cookie=%llx start_s=%lld start_us=%lld state=%s retained=%d\n",
+    snprintf(text, sizeof(text), "HEN_REST_HOOK %s build=%s pid=%d cookie=%llx start_s=%lld start_us=%lld state=%s retained=%d seq=%llu\n",
              PROBE_VERSION, PROBE_BUILD, identity.pid, (unsigned long long) identity.cookie,
              identity.start_seconds, identity.start_microseconds, state,
-             atomic_load(&must_remain_resident));
+             atomic_load(&must_remain_resident), ++status_sequence);
     int written = probe_write_text("/Temp/" PROBE_STAGE "/status.txt", text);
-    probe_log("SHELL", "STATUS_FILE state=%s written=%d", state, written);
+    if (status_sequence == 1 || !written) probe_log("SHELL", "STATUS_FILE state=%s written=%d", state, written);
     return written;
 }
 
@@ -126,26 +128,23 @@ static void *run_redirect(void *unused)
         probe_log("SHELL", "ABORT reason=firmware_guard status=%d raw=0x%08x", result, firmware.Version);
         goto fail;
     }
-    if (!probe_resolve_mono()) goto fail;
-    MonoDomain *domain = NULL;
-    for (int i = 0; i < 150 && !domain; ++i) {
-        domain = mono_get_root_domain();
-        if (!domain) sceKernelUsleep(100000);
+    void *native = NULL;
+    for (int i = 0; i < 10 && !native && !atomic_load(&stopping); ++i) {
+        native = probe_find_native_power_method();
+        if (!native) sceKernelUsleep(1000000);
     }
-    if (!domain) goto fail;
-    MonoThread *thread = mono_thread_attach(domain);
-    if (!thread) goto fail;
-    MonoAssembly *assembly = mono_domain_assembly_open(domain, "/app0/psm/Application/app.exe");
-    MonoImage *image = assembly ? mono_assembly_get_image(assembly) : NULL;
-    MonoClass *power = image ? mono_class_from_name(image, "Sce.Vsh.ShellUI.AppMain", "PowerManager") : NULL;
-    MonoMethod *method = power ? mono_class_get_method_from_name(power, "RequestStateChange", 5) : NULL;
-    void *native = method ? mono_aot_get_method(domain, method) : NULL;
-    probe_log("SHELL", "METHOD name=RequestStateChange params=5 managed=%p native=%p", (void *) method, native);
+    probe_log("SHELL", "METHOD name=RequestStateChange params=5 native=%p lookup=metadata_only", native);
     int installed = native && install_redirect(native);
-    mono_thread_detach(thread);
     if (installed) {
-        if (write_status("ready")) probe_notify("HEN Rest: shutdown-to-Rest Mode hook ready. Keeper enabled.");
-        else probe_notify("HEN Rest: patch installed but readiness record failed. Check logs.");
+        int announced = 0;
+        while (!atomic_load(&stopping)) {
+            int recorded = write_status("ready");
+            if (recorded && !announced) {
+                probe_notify("HEN Rest: shutdown-to-Rest Mode hook ready. Keeper enabled.");
+                announced = 1;
+            }
+            sceKernelUsleep(2000000);
+        }
         return NULL;
     }
 fail:
@@ -169,6 +168,8 @@ PROBE_EXPORT int module_start(size_t args, const void *argp)
 PROBE_EXPORT int module_stop(size_t args, const void *argp)
 {
     (void) args; (void) argp;
+    if (atomic_load(&must_remain_resident)) return -1;
+    atomic_store(&stopping, 1);
     if (worker_created) {
         int result = scePthreadJoin(worker_thread, NULL);
         if (result != 0) return result;
